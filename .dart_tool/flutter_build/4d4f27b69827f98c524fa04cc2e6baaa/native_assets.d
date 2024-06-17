@@ -1,1 +1,0 @@
- C:\\Users\\rusla\\Desktop\\work\\receive_whatsapp_chat-main\\example\\.dart_tool\\flutter_build\\4d4f27b69827f98c524fa04cc2e6baaa\\native_assets.yaml: 

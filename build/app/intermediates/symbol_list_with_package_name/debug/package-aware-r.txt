@@ -1,4 +1,4 @@
-com.whatsapp.receive_whatsapp_chat_example
+com.example.tttt
 attr activityAction
 attr activityName
 attr alpha
