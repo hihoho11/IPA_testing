@@ -296,13 +296,13 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "receive_whatsapp_chat_example",
+      "name": "receive_whatsapp_chat_test",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-06-17T09:40:07.811139Z",
+  "generated": "2024-06-17T09:51:50.044237Z",
   "generator": "pub",
   "generatorVersion": "3.4.1",
   "flutterRoot": "file:///C:/flutter/flutter",
