@@ -15,10 +15,17 @@ class _HomePageState extends State<HomePage> {
 
   Weather? _weather;
 
+  final double _latitude = 60.427741;
+  final double _longitude = 22.2004244;
+
   @override
   void initState() {
     super.initState();
-    _wf.currentWeatherByCityName("Vaasa").then((w) {
+    _fetchWeather();
+  }
+
+  void _fetchWeather() {
+    _wf.currentWeatherByLocation(_latitude, _longitude).then((w) {
       setState(() {
         _weather = w;
       });
@@ -103,7 +110,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Text(
-              "  ${DateFormat("d.m.y").format(now)}",
+              "  ${DateFormat("d.M.y").format(now)}",
               style: const TextStyle(
                 fontWeight: FontWeight.w400,
               ),
@@ -156,7 +163,7 @@ class _HomePageState extends State<HomePage> {
       height: MediaQuery.sizeOf(context).height * 0.15,
       width: MediaQuery.sizeOf(context).width * 0.80,
       decoration: BoxDecoration(
-        color: Colors.deepPurpleAccent,
+        color: const Color.fromARGB(255, 65, 0, 243),
         borderRadius: BorderRadius.circular(
           20,
         ),
