@@ -12,30 +12,74 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final WeatherFactory _wf = WeatherFactory(OPENWEATHER_API_KEY);
-
   Weather? _weather;
-
-  final double _latitude = 60.427741;
-  final double _longitude = 22.2004244;
+  final TextEditingController _cityController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _fetchWeather();
+    _fetchWeatherByLocation(60.427741, 22.2004244);
   }
 
-  void _fetchWeather() {
-    _wf.currentWeatherByLocation(_latitude, _longitude).then((w) {
+  void _fetchWeatherByLocation(double latitude, double longitude) {
+    _wf.currentWeatherByLocation(latitude, longitude).then((w) {
       setState(() {
         _weather = w;
       });
     });
   }
 
+  void _fetchWeatherByCity(String cityName) {
+    _wf.currentWeatherByCityName(cityName).then((w) {
+      setState(() {
+        _weather = w;
+      });
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('bozo, learn how to spell $cityName'),
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildUI(),
+      appBar: AppBar(
+        title: const Text("Juuh"),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _cityController,
+                    decoration: const InputDecoration(
+                      labelText: "Enter city name",
+                      border: OutlineInputBorder(),
+                    ),
+                    onSubmitted: (value) {
+                      _fetchWeatherByCity(value);
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    _fetchWeatherByCity(_cityController.text);
+                  },
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: _buildUI(),
+          ),
+        ],
+      ),
     );
   }
 
@@ -80,7 +124,7 @@ class _HomePageState extends State<HomePage> {
       _weather?.areaName ?? "",
       style: const TextStyle(
         fontSize: 20,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -128,7 +172,7 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          height: MediaQuery.sizeOf(context).height * 0.20,
+          height: MediaQuery.sizeOf(context).height * 0.15,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
