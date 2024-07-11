@@ -1,1 +1,0 @@
-const OPENWEATHER_API_KEY = "c20d5071af8d519e52ced0a445aa8a53";
